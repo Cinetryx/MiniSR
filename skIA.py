@@ -228,7 +228,7 @@ def preprocessAndPred(filepath, model="model"):
     #return label, predict
 
 
-filepath = "data/test/bye3.wav"
+filepath = "bye3.wav"
 preprocessAndPred(filepath)
 
 """
