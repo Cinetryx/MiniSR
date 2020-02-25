@@ -23,14 +23,12 @@ from keras.models import load_model
 
 ###################################################################################################
 
-trainPath = "data/audio/"
-
-labels = os.listdir(trainPath)
+labels =  ['bye', 'hello', 'merci', 'yo']
 
 print(f"Name of labels: {labels}")
 
 try:
-    data = pd.read_csv('data/output/data.csv')
+    data = pd.read_csv('data.csv')
 except:
     nbRecordings = []
 
@@ -149,8 +147,9 @@ print(f"Test Shape: {X_test.shape}")
 print(f"Test accuracy: {test_acc}")
 print("\n")
 
-model.save("data/output/model.h5")
+model.save("model.h5")
 
+"""
 plt.figure()
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
@@ -172,8 +171,9 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.savefig("data/output/loss.graph.png")
 plt.show()
 plt.close()
+"""
 
-model = load_model("data/output/model.h5")
+model = load_model("model.h5")
 
 for i in range(X_test.shape[0]):
     tst = model.predict(np.array([X_test[i]]))
@@ -183,7 +183,7 @@ for i in range(X_test.shape[0]):
     print("\n")
 
 def preprocessAndPred(filepath, model="model"):
-    model = load_model("data/output/"+model+".h5")
+    model = load_model(model+".h5")
 
     samples, sample_rate = librosa.load(filepath)
     chroma_stft = librosa.feature.chroma_stft(y=samples, sr=sample_rate)
@@ -227,9 +227,11 @@ def preprocessAndPred(filepath, model="model"):
     print("\n")
     #return label, predict
 
+
 filepath = "data/test/bye3.wav"
 preprocessAndPred(filepath)
 
+"""
 filepath = "data/test/bye.wav"
 preprocessAndPred(filepath)
 
@@ -247,3 +249,4 @@ preprocessAndPred(filepath)
 
 filepath = "data/test/yo.wav"
 preprocessAndPred(filepath)
+"""
